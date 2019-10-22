@@ -3,11 +3,41 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mysql = require('mysql');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+var connection = mysql.createConnection({
+	host: '35.235.91.217',
+	user: 'glim005',
+	database: 'Many_thanks'
+})
+
+connection.connect(function(err){
+	if(!err){
+		console.log("Database connected");
+	}
+	else{
+		console.log("Error connecting database: " + err.message);
+	}
+})
+
+//THIS SECTION IS FOR DEMO PURPOSES ONLY (BEGIN)
+
+var query = "DESCRIBE Postal_Address"
+connection.query(query, function(err, result){
+		if (err){
+			console.error('sql error: ', err);
+		}
+		else{
+			console.log(result);
+		}
+	});
+
+//THIS SECTION IS FOR DEMO PURPOSES ONLY (END)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
