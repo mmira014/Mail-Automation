@@ -31,13 +31,20 @@ async function quickstart() {
 
 	var images = _getAllFiles("./resources");
 
+	var postal = require('node-postal');
+
 	// Beginning text detection for all image files
 	for (var i = 0; i < images.length; i++) {
+		console.log("\n");
 		console.log(images[i]);
 
 		const [result] = await client.documentTextDetection(images[i]);
 		const fullTextAnnotation = result.fullTextAnnotation;
 		console.log(`Full text: ${fullTextAnnotation.text}`);
+		//console.log(fullTextAnnotation.text);
+		var temp = fullTextAnnotation.text.replace(/\n/g, " ");
+		//console.log(postal.expand.expand_address(temp));
+		console.log(postal.parser.parse_address(temp));
 		// fullTextAnnotation.pages.forEach(page => {
 		//   page.blocks.forEach(block => {
 		//     console.log(`Block confidence: ${block.confidence}`);
