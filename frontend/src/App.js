@@ -2,8 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import { BrowserRouter, Route, Link} from 'react-router-dom'
 import FilterOptions from './Components/FilterOptions'
 import TableContent from './Components/TableContent'
+import HomePage from './Pages/Homepage'
+import UploadPage from './Pages/Upload'
 
 var userArr = [];
 const user = {
@@ -37,7 +40,7 @@ var data = {
 .then(res => res.json())
       .then(res => {
         console.log(res);
-
+        // TODO: store db stuff in variables
       });
   }
 
@@ -49,27 +52,10 @@ var data = {
   
   render() {
     return (
-      <div >
-        <FilterOptions/>
-        <div className="main">
-          <header class="App-header">
-            <b>A Million Thanks: Addresses</b>
-          </header>
-          <table class="table">
-            <thead >
-              <tr class="tableHeader">
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Street</th>
-                <th scope="col">City</th>
-                <th scope="col">State</th>
-                <th scope="col">Zipcode</th>
-              </tr>
-            </thead>
-            <TableContent userArray={userArr}/>
-          </table>
-        </div>
-      </div>
+      <BrowserRouter>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/upload" component={UploadPage} />
+      </BrowserRouter>
     );
   }
 }
