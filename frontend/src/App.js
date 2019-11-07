@@ -16,6 +16,35 @@ const user = {
 // ------------ Classes ----------------------------------
 
 class App extends React.Component {
+  
+  callAPI(){   //requests the server data when the page loads
+  
+var data = {
+  test: "Test"
+}
+
+    fetch("http://localhost:9000/dbdisplay/loadmain",{
+
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+.then(res => res.json())
+      .then(res => {
+        console.log(res);
+
+      });
+  }
+
+
+  componentDidMount(){
+
+      this.callAPI();
+  }
+  
   render() {
     return (
       <div >
