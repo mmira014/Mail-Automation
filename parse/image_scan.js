@@ -63,33 +63,10 @@ async function quickstart() {
 		}, function(err, response) {
 		  if (!err) {
 		  	// console.log("Cleaning address result: ");
-		  	// console.log(response.json.results[0]['formatted_address']);
-
-		  	// Parsing cleaned address using libpostal C library
-		  	parsed_array.push(postal.parser.parse_address(response.json.results[0]['formatted_address']));
-
-		  	// console.log("\nparsed result: ");
-			// console.log(postal.parser.parse_address(response.json.results[0]['formatted_address']));
+		  	//console.log(response.json.results[0]['formatted_address']);
+		  	parsed_array.push(response.json.results[0]['address_components']);
 		  }
 		});
-		
-		// fullTextAnnotation.pages.forEach(page => {
-		//   page.blocks.forEach(block => {
-		//     console.log(`Block confidence: ${block.confidence}`);
-		//     block.paragraphs.forEach(paragraph => {
-		//       console.log(`Paragraph confidence: ${paragraph.confidence}`);
-		//       paragraph.words.forEach(word => {
-		//         const wordText = word.symbols.map(s => s.text).join('');
-		//         console.log(`Word text: ${wordText}`);
-		//         console.log(`Word confidence: ${word.confidence}`);
-		//         word.symbols.forEach(symbol => {
-		//           console.log(`Symbol text: ${symbol.text}`);
-		//           console.log(`Symbol confidence: ${symbol.confidence}`);
-		//         });
-		//       });
-		//     });
-		//   });
-		// });
 	}
 
 	//Further parsing for readability and usage purposes
@@ -101,22 +78,23 @@ async function quickstart() {
 			state: "",
 			zipcode:""
 		};
+		//console.log(parsed_array[i]);
 
 		for (var j = 0; j < parsed_array[i].length; j++) {
-			if (parsed_array[i][j]['component'] == 'house_number') {
-				temp['house_number'] = parsed_array[i][j]['value'];
+			if (parsed_array[i][j]['types'] == 'street_number') {
+				temp['house_number'] = parsed_array[i][j]['long_name'];
 			}
-			else if (parsed_array[i][j]['component'] == 'road') {
-				temp['road'] = parsed_array[i][j]['value'];
+			else if (parsed_array[i][j]['types'] == 'route') {
+				temp['road'] = parsed_array[i][j]['long_name'];
 			}
-			else if (parsed_array[i][j]['component'] == 'city') {
-				temp['city'] = parsed_array[i][j]['value'];
+			else if (parsed_array[i][j]['types'][0] == 'locality') {
+				temp['city'] = parsed_array[i][j]['long_name'];
 			}
-			else if (parsed_array[i][j]['component'] == 'state') {
-				temp['state'] = parsed_array[i][j]['value'];
+			else if (parsed_array[i][j]['types'][0] == 'administrative_area_level_1') {
+				temp['state'] = parsed_array[i][j]['long_name'];
 			}
-			else if (parsed_array[i][j]['component'] == 'postcode') {
-				temp['zipcode'] = parsed_array[i][j]['value'];
+			else if (parsed_array[i][j]['types'] == 'postal_code') {
+				temp['zipcode'] = parsed_array[i][j]['long_name'];
 			}
 		}
 		parsedJson.push(temp);		
