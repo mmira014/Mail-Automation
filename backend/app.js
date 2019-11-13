@@ -28,7 +28,7 @@ connection.connect(function(err){
 	}
 })
 global.connection = connection;
-
+/*
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (BEGIN)
 	var returnnames = [];
 	var returnstreets = [];
@@ -83,7 +83,7 @@ global.connection = connection;
 	});
 
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (END)
-
+*/
 app.use(function(req, res, next){
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -157,13 +157,13 @@ async function quickstart() {
 
 	};
 
-	var images = _getAllFiles("./resources");
+	var images = _getAllFiles("./tempresources");
 
 	var parsed_array = [];
 	var parsedJson = [];
 
 	// Beginning text detection for all image files
-	for (var i = 0; i < 2; i++) {
+	for (var i = 0; i < images.length; i++) {
 		//console.log("\n");
 		//console.log(images[i]);
 
