@@ -122,24 +122,28 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-'use strict';
 
+//google cloud vision stuff
+'use strict';
+const vision = require('@google-cloud/vision');
+const maps = require('@google/maps')
+var filesystem = require("fs");
 async function quickstart() {
 	// [Starts text detection]
 	// Imports the Google Cloud client library
-	const vision = require('@google-cloud/vision');
+	
 
 	// Creates a client
 	const client = new vision.ImageAnnotatorClient();
 
-	const googleMapsClient = require('@google/maps').createClient({
+	const googleMapsClient = maps.createClient({
   		key: 'AIzaSyCetpay9unzzY9ILi4F5bUUOr6DK3UHpuc'
 	});
 
 	// Function to acquire all files from a folder
 	var _getAllFiles = function(dir) {
 
-	    var filesystem = require("fs");
+	    
 	    var results = [];
 
 	    filesystem.readdirSync(dir).forEach(function(file) {
