@@ -34,7 +34,6 @@ async function quickstart() {
 	};
 
 	var images = _getAllFiles("./resources");
-	var postal = require('node-postal');
 
 	var parsed_array = [];
 	var parsedJson = [];
@@ -108,3 +107,4 @@ async function quickstart() {
 //quickstart().catch(console.error);
 
 quickstart().then(x => console.log(x));
+
