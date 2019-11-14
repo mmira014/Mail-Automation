@@ -1,3 +1,4 @@
+import '../App.css'
 import React from 'react'
 import { BrowserRouter, Route, Link} from 'react-router-dom'
 
@@ -15,6 +16,7 @@ class FilterOptions extends React.Component {
           <div class="panel">sample text</div>
           <button class="accordion"><h3>Zipcode</h3></button>
           <div class="panel">sample text</div>
+          {/* <Link to="/inv_addresses" class="invAddrButton"><h3>Invalid Addresses</h3></Link> */}
           <Link to="/upload" class="uploadButton"><h1>Upload</h1></Link>
           
 
