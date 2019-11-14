@@ -207,24 +207,37 @@ async function quickstart() {
 		};
 		//console.log(parsed_array[i]);
 
+		var valid = 0;
+
 		for (var j = 0; j < parsed_array[i].length; j++) {
 			if (parsed_array[i][j]['types'] == 'street_number') {
 				temp['house_number'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'] == 'route') {
 				temp['road'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'][0] == 'locality') {
 				temp['city'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'][0] == 'administrative_area_level_1') {
 				temp['state'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'] == 'postal_code') {
 				temp['zipcode'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 		}
-		parsedJson.push(temp);		
+		
+		if (valid >= 5) {
+			parsedJson.push([temp, "valid"]);
+		}		
+		else {
+			parsedJson.push([temp, "invalid"]);
+		}
 	}
 
 	//console.log(parsedJson);
