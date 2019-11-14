@@ -14,7 +14,6 @@ class HomePage extends React.Component {
               <table class="table">
                 <thead >
                   <tr class="tableHeader">
-                    <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Street</th>
                     <th scope="col">City</th>

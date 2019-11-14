@@ -18,23 +18,75 @@ function getAddrList(addrList) {
 
 
 class TableContent extends React.Component {
+  /*
     constructor(props) {
       super(props);
       getAddrList(this.props.userArray);
     }
+    */
+    constructor(props){
+    super(props);
+    this.state={
+      names: [],
+      street: [],
+      city: [],
+      state: [],
+      zip: []
+    };
+  }
+
+    callAPI(){   //requests the server data when the page loads
+  
+      var data = {
+        test: "Test"
+      }
+
+    fetch("http://localhost:9000/dbdisplay/loadmain",{
+
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        //TODO: store db stuff in variables
+        
+        this.setState({
+          names: JSON.parse(res.names),
+          street: JSON.parse(res.streets),
+          city: JSON.parse(res.cities),
+          state: JSON.parse(res.state),
+          zip: JSON.parse(res.zips)
+        })
+        
+
+        console.log(this.state.names);
+        console.log(this.state.street);
+        console.log(this.state.city);
+        console.log(this.state.state);
+        console.log(this.state.zip);
+      });
+  }
+
+
+  componentDidMount(){
+      this.callAPI();
+  }
   
     render() {
       return (
         <tbody>
-          {this.props.userArray.map((addr, index) => {
+          {this.state.names.map((addr, index) => {
             return (
               <tr class="table">
-                <th>{addr.id}</th>
-                <td>{addr.name}</td>
-                <td>{addr.street}</td>
-                <td>{addr.city}</td>
-                <td>{addr.state}</td>
-                <td>{addr.zipcode}</td>
+                <td>{this.state.names[index]}</td>
+                <td>{this.state.street[index]}</td>
+                <td>{this.state.city[index]}</td>
+                <td>{this.state.state[index]}</td>
+                <td>{this.state.zip[index]}</td>
               </tr>
             )})
           }
