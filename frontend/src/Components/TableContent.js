@@ -90,7 +90,7 @@ class TableContent extends React.Component {
                 <td>{this.state.city[index]}</td>
                 <td>{this.state.state[index]}</td>
                 <td>{this.state.zip[index]}</td>
-                <td>{this.state.capdate[index]}</td>
+                <td>{this.state.capdate[index].substring(0, 10)}</td>
               </tr>
             )})
           }

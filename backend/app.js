@@ -28,7 +28,7 @@ connection.connect(function(err){
 	}
 })
 global.connection = connection;
-/*
+
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (BEGIN)
 	var returnnames = [];
 	var returnstreets = [];
@@ -37,6 +37,14 @@ global.connection = connection;
 	var returnzip = [];
 	var returncapdate = [];
 
+	/*
+	var ts = Date.now();
+	var date_obj = new Date(ts);
+	var date = date_obj.getDate();
+	var month = date_obj.getMonth() + 1;
+	var year = date_obj.getFullYear();
+	var capturedate = year + "-" + month + "-" + date;
+	*/
 	var capturedate = new Date().toISOString().slice(0, 19).replace('T', ' ');
 	var index;
 	fs.readdir("tempresources", function(err, items){
@@ -83,7 +91,7 @@ global.connection = connection;
 
 
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (END)
-*/
+
 app.use(function(req, res, next){
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
