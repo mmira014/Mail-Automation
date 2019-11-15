@@ -10,6 +10,8 @@ var mysql = require('mysql');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dbdisplayRouter = require('./routes/dbdisplay');
+var fixaddressRouter = require('./routes/fixaddress');
+var submitFileRouter = require('./routes/submitFile');
 
 var app = express();
 
@@ -111,6 +113,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dbdisplay', dbdisplayRouter);
+app.use('/fixaddress', fixaddressRouter);
+app.use('/submitFile', submitFileRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
