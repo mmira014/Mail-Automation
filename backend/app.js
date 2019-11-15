@@ -37,50 +37,50 @@ global.connection = connection;
 	var returnzip = [];
 	var returncapdate = [];
 
-	var names = ["hi", "my", "name", "is"];
-	var streets = ["hi", "my", "name", "is"];
-	var cities = ["hi", "my", "name", "is"];
-	var states = ["hi", "my", "name", "is"];
-	var zipcodes = ["92507", "92607", "92545", "92932"];
 	var capturedate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-	
-	var testfile = fs.readFileSync("testfile.JPG")
 	var index;
-	for (index = 0; index < names.length; index++){
-		var insertquery = "INSERT INTO Postal_Address (Name, Street, City, State, Zip, Valid, File, Capture_date) VALUES (" + connection.escape(names[index]) + "," + connection.escape(streets[index]) + "," + connection.escape(cities[index]) + "," + connection.escape(states[index]) + "," + connection.escape(zipcodes[index]) + "," + connection.escape("yes") + "," + connection.escape(testfile) + "," + connection.escape(capturedate) + ")";
-		connection.query(insertquery, function(err, result){
-			if (err){
-				console.error('sql error: ', err);
+	fs.readdir("tempresources", function(err, items){
+		quickstart().then(addresses => {
+			console.log(addresses)
+			for (index = 0; index < addresses.length; index++){
+				var testfile = fs.readFileSync("tempresources/" + items[index]);
+				var street_address = addresses[index][0].house_number + " " + addresses[index][0].road;
+				var insertquery = "INSERT INTO Postal_Address (Name, Street, City, State, Zip, Valid, File, Capture_date) VALUES (" + connection.escape("test") + "," + connection.escape(street_address ) + "," + connection.escape(addresses[index][0].city) + "," + connection.escape(addresses[index][0].state) + "," + connection.escape(addresses[index][0].zipcode) + "," + connection.escape(addresses[index][1]) + "," + connection.escape(testfile) + "," + connection.escape(capturedate) + ")";
+				connection.query(insertquery, function(err, result){
+					if (err){
+						console.error('sql error: ', err);
+					}
+					else{
+						console.log("sucessfully inserted");
+					}
+				})
 			}
-			else{
-				console.log("sucessfully inserted");
-			}
+			var retrievequery = "SELECT Name, Street, City, State, Zip, Capture_date FROM Postal_Address WHERE Valid = 'yes'";
+			connection.query(retrievequery, function(err, result){
+				if (err){
+					console.error('sql error: ', err);
+				}
+				else{
+					var i;
+						for (i = 0; i < result.length; i++){
+							returnnames.push(result[i].Name);
+							returnstreets.push(result[i].Street);
+							returncities.push(result[i].City);
+							returnstates.push(result[i].State);
+							returnzip.push(result[i].Zip);
+							returncapdate.push(result[i].Capture_date);
+						}
+						console.log(returnnames);
+						console.log(returnstreets);
+						console.log(returncities);
+						console.log(returnstates);
+						console.log(returnzip);
+						console.log(returncapdate);
+				}
+			});
 		})
-	}
+	})
 
-	var retrievequery = "SELECT Name, Street, City, State, Zip, Capture_date FROM Postal_Address WHERE Valid = 'yes'";
-	connection.query(retrievequery, function(err, result){
-		if (err){
-			console.error('sql error: ', err);
-		}
-		else{
-			var i;
-			for (i = 0; i < result.length; i++){
-				returnnames.push(result[i].Name);
-				returnstreets.push(result[i].Street);
-				returncities.push(result[i].City);
-				returnstates.push(result[i].State);
-				returnzip.push(result[i].Zip);
-				returncapdate.push(result[i].Capture_date);
-			}
-			console.log(returnnames);
-			console.log(returnstreets);
-			console.log(returncities);
-			console.log(returnstates);
-			console.log(returnzip);
-			console.log(returncapdate);
-		}
-	});
 
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (END)
 */
@@ -247,5 +247,5 @@ async function quickstart() {
 
 //quickstart().catch(console.error);
 
-quickstart().then(x => console.log(x));
+//quickstart().then(x => console.log(x));
 
