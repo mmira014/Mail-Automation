@@ -19,6 +19,7 @@ class HomePage extends React.Component {
                     <th scope="col">City</th>
                     <th scope="col">State</th>
                     <th scope="col">Zipcode</th>
+                    <th scope="col">Capture date</th>
                   </tr>
                 </thead>
                 <TableContent userArray={[]}/>

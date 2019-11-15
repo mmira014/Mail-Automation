@@ -31,7 +31,8 @@ class TableContent extends React.Component {
       street: [],
       city: [],
       state: [],
-      zip: []
+      zip: [],
+      capdate: []
     };
   }
 
@@ -59,7 +60,8 @@ class TableContent extends React.Component {
           street: JSON.parse(res.streets),
           city: JSON.parse(res.cities),
           state: JSON.parse(res.state),
-          zip: JSON.parse(res.zips)
+          zip: JSON.parse(res.zips),
+          capdate: JSON.parse(res.capdates)
         })
         
 
@@ -68,6 +70,7 @@ class TableContent extends React.Component {
         console.log(this.state.city);
         console.log(this.state.state);
         console.log(this.state.zip);
+        console.log(this.state.capdate);
       });
   }
 
@@ -87,6 +90,7 @@ class TableContent extends React.Component {
                 <td>{this.state.city[index]}</td>
                 <td>{this.state.state[index]}</td>
                 <td>{this.state.zip[index]}</td>
+                <td>{this.state.capdate[index]}</td>
               </tr>
             )})
           }
