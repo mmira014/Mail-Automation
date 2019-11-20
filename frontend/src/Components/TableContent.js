@@ -50,6 +50,7 @@ class TableContent extends React.Component {
       },
       body: JSON.stringify(data)
     })
+  
       .then(res => res.json())
       .then(res => {
         console.log(res);
@@ -63,6 +64,8 @@ class TableContent extends React.Component {
           zip: JSON.parse(res.zips),
           capdate: JSON.parse(res.capdates)
         })
+
+
         
 
         console.log(this.state.names);

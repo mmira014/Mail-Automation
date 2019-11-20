@@ -5,8 +5,10 @@ import './App.css';
 import { BrowserRouter, Route, Link} from 'react-router-dom'
 import FilterOptions from './Components/FilterOptions'
 import TableContent from './Components/TableContent'
+import InvalidContent from './Components/InvalidContent'
 import HomePage from './Pages/Homepage'
 import UploadPage from './Pages/Upload'
+import InvalidAddrPage from './Pages/InvalidAddr'
 
 var userArr = [];
 const user = {
@@ -27,6 +29,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Route exact path="/" component={HomePage} />
         <Route path="/upload" component={UploadPage} />
+        <Route path="/invalid" component={InvalidAddrPage} />
       </BrowserRouter>
     );
   }

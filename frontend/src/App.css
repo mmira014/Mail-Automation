@@ -56,11 +56,29 @@
   padding: 0px;
 }
 
+.invalidButton {
+  display: block;
+  width: 100%;
+  background-color: rgb(166, 201, 255);
+  color: #ffffff;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  padding: 0px;
+}
+
 .uploadButton:hover {
   background-color: rgb(199, 222, 255);
   text-decoration: none;
   color: white;
 }
+
+.invalidButton:hover {
+  background-color: rgb(199, 222, 255);
+  text-decoration: none;
+  color: white;
+}
+
 /* 
 .sidenav h1 {
   background-color: #535f77;

@@ -246,10 +246,12 @@ async function quickstart() {
 		
 		if (valid >= 5) {
 			parsedJson.push([temp, "valid"]);
+			console.log("TEST");
 		}		
 		else {
 			parsedJson.push([temp, "invalid"]);
 		}
+
 	}
 
 	//console.log(parsedJson);
