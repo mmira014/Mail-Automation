@@ -177,6 +177,7 @@ async function quickstart() {
 
 	var parsed_array = [];
 	var parsedJson = [];
+	var coordinates_array = [];
 
 	// Beginning text detection for all image files
 	for (var i = 0; i < images.length; i++) {
@@ -203,6 +204,7 @@ async function quickstart() {
 		  if (!err) {
 		  	// console.log("Cleaning address result: ");
 		  	//console.log(response.json.results[0]['formatted_address']);
+		  	coordinates_array.push(response.json.results[0]['geometry']['location']);
 		  	parsed_array.push(response.json.results[0]['address_components']);
 		  }
 		});
@@ -215,7 +217,9 @@ async function quickstart() {
 			road: "",
 			city: "",
 			state: "",
-			zipcode:""
+			zipcode:"",
+			lat: 0,
+			lng: 0
 		};
 		//console.log(parsed_array[i]);
 
@@ -243,7 +247,8 @@ async function quickstart() {
 				valid++;
 			}
 		}
-		
+		temp['lat'] = coordinates_array[i]['lat'];
+		temp['lng'] = coordinates_array[i]['lng'];
 		if (valid >= 5) {
 			parsedJson.push([temp, "valid"]);
 			console.log("TEST");

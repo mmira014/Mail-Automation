@@ -36,10 +36,11 @@ async function quickstart() {
 	var images = _getAllFiles("./resources");
 
 	var parsed_array = [];
+	var coordinates_array = [];
 	var parsedJson = [];
 
 	// Beginning text detection for all image files
-	for (var i = 0; i < images.length; i++) {
+	for (var i = 0; i < 2; i++) {
 		//console.log("\n");
 		//console.log(images[i]);
 
@@ -47,7 +48,7 @@ async function quickstart() {
 		const fullTextAnnotation = result.fullTextAnnotation;
 
 
-		//console.log(`Full text: ${fullTextAnnotation.text}`);
+		console.log(`Full text: ${fullTextAnnotation.text}`);
 		//console.log(fullTextAnnotation.text);
 
 		//Converting text to a single line for parsing purposes
@@ -62,7 +63,8 @@ async function quickstart() {
 		}, function(err, response) {
 		  if (!err) {
 		  	// console.log("Cleaning address result: ");
-		  	//console.log(response.json.results[0]['formatted_address']);
+		  	coordinates_array.push(response.json.results[0]['geometry']['location']);
+		  	console.log("\n");
 		  	parsed_array.push(response.json.results[0]['address_components']);
 		  }
 		});
@@ -75,28 +77,46 @@ async function quickstart() {
 			road: "",
 			city: "",
 			state: "",
-			zipcode:""
+			zipcode: "",
+			lat: 0,
+			lng: 0
 		};
 		//console.log(parsed_array[i]);
+
+		var valid = 0;
 
 		for (var j = 0; j < parsed_array[i].length; j++) {
 			if (parsed_array[i][j]['types'] == 'street_number') {
 				temp['house_number'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'] == 'route') {
 				temp['road'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'][0] == 'locality') {
 				temp['city'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'][0] == 'administrative_area_level_1') {
 				temp['state'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
 			else if (parsed_array[i][j]['types'] == 'postal_code') {
 				temp['zipcode'] = parsed_array[i][j]['long_name'];
+				valid++;
 			}
+
 		}
-		parsedJson.push(temp);		
+		temp['lat'] = coordinates_array[i]['lat'];
+		temp['lng'] = coordinates_array[i]['lng'];
+		//console.log(coordinates_array[i]['lat']);
+		if (valid >= 5) {
+			parsedJson.push([temp, "valid"]);
+		}		
+		else {
+			parsedJson.push([temp, "invalid"]);
+		}
 	}
 
 	//console.log(parsedJson);
