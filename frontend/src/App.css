@@ -33,7 +33,7 @@
   top: 0; /* Stay at the top */
   left: 0;
   background-color: rgb(106, 121, 179);
-  overflow-x: hidden; /* Disable horizontal scroll */
+  /* overflow-x: hidden; Disable horizontal scroll */
   padding-top: 0px;
 }
 
@@ -97,32 +97,6 @@
   border: none
 } */
 
-/* filter accordion stuff begin */
-.accordion {
-  background-color: #535f77;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  padding: 5%;
-  width: 100%;
-  border: none;
-  text-align: center;
-  outline: none;
-  transition: 0.5s;
-}
-
-.active, .accordion:hover {
-  background-color: #ccc;
-}
-
-.panel {
-  padding: 18px;
-  background-color: #282c34;
-  color: seashell;
-  display: none;
-  overflow: hidden;
-}
-
-/* filter accordion stuff end */
 
 .root {
   height: 100%;
