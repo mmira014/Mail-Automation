@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
@@ -123,7 +124,7 @@ async function quickstart() {
 
 //quickstart().catch(console.error);
 
-quickstart().then(x => console.log(x));
+//quickstart().then(x => console.log(x));
 
 router.post('/', function(req, res, next){
 	var returnnames = [];
@@ -155,7 +156,7 @@ router.post('/', function(req, res, next){
 			}
 		})
 	}
-	/*
+	
 	var retrievequery = "SELECT Name, Street, City, State, Zip, Capture_date FROM Postal_Address WHERE Valid = 'yes'";
 	connection.query(retrievequery, function(err, result){
 		if (err){
@@ -181,7 +182,7 @@ router.post('/', function(req, res, next){
 			});
 		}
 	});
-	*/
+	
 });
 
 module.exports = router;
