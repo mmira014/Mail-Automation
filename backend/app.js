@@ -6,12 +6,14 @@ var cookieParser = require('cookie-parser');
 var cors = require('cors');
 var logger = require('morgan');
 var mysql = require('mysql');
+var busboy = require('connect-busboy');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dbdisplayRouter = require('./routes/dbdisplay');
 var fixaddressRouter = require('./routes/fixaddress');
 var submitFileRouter = require('./routes/submitFile');
+var uploadFilesRouter = require('./routes/uploadFiles');
 
 var app = express();
 
@@ -109,12 +111,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(busboy())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dbdisplay', dbdisplayRouter);
 app.use('/fixaddress', fixaddressRouter);
-app.use('/submitFile', submitFileRouter)
+app.use('/submitFile', submitFileRouter);
+app.use('/upload', uploadFilesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -154,8 +158,6 @@ async function quickstart() {
 
 	// Function to acquire all files from a folder
 	var _getAllFiles = function(dir) {
-
-	    
 	    var results = [];
 
 	    filesystem.readdirSync(dir).forEach(function(file) {
@@ -262,4 +264,3 @@ async function quickstart() {
 //quickstart().catch(console.error);
 
 //quickstart().then(x => console.log(x));
-
