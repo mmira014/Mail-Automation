@@ -79,7 +79,7 @@ class UploadPage extends React.Component {
     return (
       <div>
         {/* <h1>Insert file upload box here</h1> */}
-        <input type="file" multiple={true} accept="image/*" onChange={this.fileSelectHandler} />
+        <input type="file" multiple={true} accept=".heic,image/*" onChange={this.fileSelectHandler} />
       </div>
     );
   }
