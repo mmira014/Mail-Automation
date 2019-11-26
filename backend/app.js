@@ -32,7 +32,7 @@ connection.connect(function(err){
 	}
 })
 global.connection = connection;
-
+/*
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (BEGIN)
 	var returnnames = [];
 	var returnstreets = [];
@@ -104,7 +104,7 @@ global.connection = connection;
 
 
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (END)
-
+*/
 app.use(function(req, res, next){
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
