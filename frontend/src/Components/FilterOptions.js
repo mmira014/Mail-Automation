@@ -1,20 +1,31 @@
+import '../App.css'
 import React from 'react'
 import { BrowserRouter, Route, Link} from 'react-router-dom'
-
+import {Accordion, AccordionItem} from 'react-light-accordion'
+import 'react-light-accordion/demo/css/index.css'
 
 class FilterOptions extends React.Component {
     render() {
       return (
         <div class="sidenav">
           <Link to="/invalid" class="invalidButton"><h1>Invalid Address</h1></Link>
-          <div class="accordion"><h2><u>Filter:</u></h2></div>
-          <div class="panel"><p>test</p></div>
-          <button class="accordion"><h3>City</h3></button>
-          <div class="panel">sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text </div>
-          <button class="accordion"><h3>State</h3></button>
-          <div class="panel">sample text</div>
-          <button class="accordion"><h3>Zipcode</h3></button>
-          <div class="panel">sample text</div>
+          <Accordion atomic={true}>
+            <AccordionItem title="City">
+              <div>
+                test1
+              </div>
+            </AccordionItem>
+            <AccordionItem title="State">
+              <div>
+                test2
+              </div>
+            </AccordionItem>
+            <AccordionItem title="Zipcode">
+              <div>
+                test3
+              </div>
+            </AccordionItem>
+          </Accordion>
           <Link to="/upload" class="uploadButton"><h1>Upload</h1></Link>
           
 

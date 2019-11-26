@@ -4,7 +4,7 @@
 
 .main {
   margin-left: 160px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+  padding: 0px;
   background-color: rgba(185, 185, 253, 0.171);
   color: rgb(0, 0, 0);
   height: 100%;
@@ -33,7 +33,7 @@
   top: 0; /* Stay at the top */
   left: 0;
   background-color: rgb(106, 121, 179);
-  overflow-x: hidden; /* Disable horizontal scroll */
+  /* overflow-x: hidden; Disable horizontal scroll */
   padding-top: 0px;
 }
 
@@ -44,6 +44,14 @@
   color: #818181;
   display: block;
 } */
+
+.invAddrButton {
+  bottom: 20px;
+  display: block;
+  width: 100%;
+  background-color: rgb(250, 69, 69);
+  background: #ffffff;
+}
 
 .uploadButton {
   display: block;
@@ -89,32 +97,6 @@
   border: none
 } */
 
-/* filter accordion stuff begin */
-.accordion {
-  background-color: #535f77;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  padding: 5%;
-  width: 100%;
-  border: none;
-  text-align: center;
-  outline: none;
-  transition: 0.5s;
-}
-
-.active, .accordion:hover {
-  background-color: #ccc;
-}
-
-.panel {
-  padding: 18px;
-  background-color: #282c34;
-  color: seashell;
-  display: none;
-  overflow: hidden;
-}
-
-/* filter accordion stuff end */
 
 .root {
   height: 100%;
@@ -123,7 +105,7 @@
 .table {
   background-color: #34415c;
   color: #ffffff;
-  border:none;
+  height: 100%;
 }
 
 .tableHeader {
@@ -146,4 +128,11 @@
 
 .table:hover {
   background-color: rgb(119, 141, 160);
+}
+
+.table th, .table td {
+  padding: 0.75rem;
+  widows: 100%;
+	vertical-align: top;
+	border-top: 1px solid #000;
 }
