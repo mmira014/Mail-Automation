@@ -32,7 +32,7 @@ connection.connect(function(err){
 	}
 })
 global.connection = connection;
-
+/*
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (BEGIN)
 	var returnnames = [];
 	var returnstreets = [];
@@ -52,25 +52,28 @@ global.connection = connection;
 	var capturedate = new Date().toISOString().slice(0, 19).replace('T', ' ');
 	var index;
 	fs.readdir("tempresources", function(err, items){
+		
 		quickstart().then(addresses => {
-			//console.log(addresses)
+			console.log(addresses)
 			for (index = 0; index < addresses.length; index++){
 				//console.log(addresses[index][0].lat);
 				//console.log(addresses[index][0].lng);
-				var testfile = fs.readFileSync("tempresources/" + items[index]);
+				//var testfile = fs.readFileSync("tempresources/" + items[index]);
+				var testfile = "tempresources/" + items[index];
 				var street_address = addresses[index][0].house_number + " " + addresses[index][0].road;
-				var insertquery = "INSERT INTO Postal_Address (Name, Street, City, State, Zip, Valid, File, Capture_date, Lat, Long) VALUES (" + connection.escape("test") + "," + connection.escape(street_address ) + "," + connection.escape(addresses[index][0].city) + "," + connection.escape(addresses[index][0].state) + "," + connection.escape(addresses[index][0].zipcode) + "," + connection.escape(addresses[index][1]) + "," + connection.escape(testfile) + "," + connection.escape(capturedate) + "," + connection.escape("0.0") + "," + connection.escape("0.0") + ")";
+				var insertquery = "INSERT INTO Postal_Address (Name, Street, City, State, Zip, Valid, File, Capture_date, Lat, Lng) VALUES (" + connection.escape("test") + "," + connection.escape(street_address ) + "," + connection.escape(addresses[index][0].city) + "," + connection.escape(addresses[index][0].state) + "," + connection.escape(addresses[index][0].zipcode) + "," + connection.escape(addresses[index][1]) + "," + connection.escape(testfile) + "," + connection.escape(capturedate) + "," + connection.escape(addresses[index][0].lat) + "," + connection.escape(addresses[index][0].lng) + ")";
 				connection.query(insertquery, function(err, result){
 					if (err){
 						//console.error('sql error: ', err);
-						console.log('hi');
+						//console.log('hi');
+						throw err
 					}
 					else{
 						console.log("sucessfully inserted");
 					}
 				})
 			}
-			/*
+			
 			var retrievequery = "SELECT Name, Street, City, State, Zip, Capture_date FROM Postal_Address WHERE Valid = 'valid'";
 			connection.query(retrievequery, function(err, result){
 				if (err){
@@ -94,13 +97,14 @@ global.connection = connection;
 						console.log(returncapdate);
 				}
 			});
-			*/
+			
 		})
+		
 	})
 
 
 //THIS SECTION IS FOR DEMO PURPOSES ONLY (END)
-
+*/
 app.use(function(req, res, next){
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -262,7 +266,6 @@ async function quickstart() {
 		else {
 			parsedJson.push([temp, "invalid"]);
 		}
-
 	}
 
 	//console.log(parsedJson);
