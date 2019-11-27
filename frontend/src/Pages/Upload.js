@@ -8,7 +8,8 @@ import axios from 'axios'
 
 class UploadPage extends React.Component {
   state = {
-    userFiles: null
+    userFiles: null,
+    uploadDone: false
   }
 
   // grabs selected files and stores array in state userFiles
@@ -61,18 +62,23 @@ class UploadPage extends React.Component {
     }
 
     axios.all(axiosArr)
+    .then(() => {
+        this.setState({uploadDone: true});
+        alert("FILE UPLOAD COMPLETE");
+    })
     .catch((err) => {
       console.log("Error:", err);
     });
-    // reader.onload = function() {
-    //   let out = reader.result
-    //   console.log("out:", out)
-    //   fd.append('fileBinary', out)
-    //   axios.post('http://localhost:9000/upload',fd)
-    //   .then(response => console.log("Response:\n",response.data))
-    //   .catch(err => console.error(err))
-    // }
     
+    
+    
+  }
+
+  processFiles = event => {
+    fetch('http://localhost:9000/submitFile')
+    .then(() => {
+      console.log("Fetch made")
+    })
   }
 
   render() {
@@ -80,6 +86,7 @@ class UploadPage extends React.Component {
       <div>
         {/* <h1>Insert file upload box here</h1> */}
         <input type="file" multiple={true} accept=".heic,image/*" onChange={this.fileSelectHandler} />
+        <input type="button" value="Process" onClick={this.processFiles}/>
       </div>
     );
   }

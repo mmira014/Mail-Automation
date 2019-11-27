@@ -145,6 +145,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// app.use(cors());
+
+// app.get('/process', (res,req) => {
+// 	// quickstart();
+// 	console.log("FIXME: PROCESS");
+// })
+
 module.exports = app;
 
 

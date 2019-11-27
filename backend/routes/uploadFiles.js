@@ -15,6 +15,7 @@ router.post('/', (req, res) => {
         fstream = fs.createWriteStream('./temp2/' + filename);
         file.pipe(fstream);
         fstream.on('close', function() {
+            console.log("Done");
             // res.redirect('back');
         });
     });
