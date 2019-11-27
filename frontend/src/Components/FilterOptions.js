@@ -1,8 +1,8 @@
-import '../App.css'
 import React from 'react'
 import { BrowserRouter, Route, Link} from 'react-router-dom'
 import {Accordion, AccordionItem} from 'react-light-accordion'
 import 'react-light-accordion/demo/css/index.css'
+import '../App.css'
 
 class FilterOptions extends React.Component {
     render() {
