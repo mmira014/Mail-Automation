@@ -22,20 +22,29 @@ router.get('/', function(req, res, next){
 		quickstart().then(addresses => {
 			console.log(addresses);
 			for (index = 0; index < addresses.length; index++){
-				var testfile = "./temp2/" + items[index];
+				var oldloc = "./temp2/" + items[index];
+				var testfile = "./mainImages/" + items[index];
+				fs.rename(oldloc, testfile, function(error){
+							if (error){
+								throw error;
+							}
+							else{
+								console.log("image successfully moved");
+							}
+				})
 				console.log(testfile);
 				var street_address = addresses[index][0].house_number + " " + addresses[index][0].road;
 				var insertquery = "INSERT INTO Postal_Address2 (Name, Street, City, State, Zip, Valid, File, Capture_date, Lat, Lng) VALUES (" + connection.escape("test") + "," + connection.escape(street_address ) + "," + connection.escape(addresses[index][0].city) + "," + connection.escape(addresses[index][0].state) + "," + connection.escape(addresses[index][0].zipcode) + "," + connection.escape(addresses[index][1]) + "," + connection.escape(testfile) + "," + connection.escape(capturedate) + "," + connection.escape(addresses[index][0].lat) + "," + connection.escape(addresses[index][0].lng) + ")";
 				connection.query(insertquery, function(err, result){
 					if (err){
-						throw err
+						throw err;
 					}
 					else{
 						console.log("sucessfully inserted");
 					}
 				})
 			}		
-			res.send("finished insert");			
+			res.send("finished inserts");			
 		})
 		
 	})
