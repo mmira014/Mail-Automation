@@ -24,12 +24,7 @@ router1.post('/loadmain', function(req, res, next){
 				returnzip1.push(result[i].Zip);
 				returncapdate1.push(result[i].Capture_date);
 			}
-			console.log(returnnames1);
-			console.log(returnstreets1);
-			console.log(returncities1);
-			console.log(returnstates1);
-			console.log(returnzip1);
-			console.log(returncapdate1);
+			console.log("retrieve done");
 			res.json({
 				names: JSON.stringify(returnnames1),
 				streets: JSON.stringify(returnstreets1),
