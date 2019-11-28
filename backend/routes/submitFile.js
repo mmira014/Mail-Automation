@@ -5,6 +5,61 @@ var fs = require('fs');
 const vision = require('@google-cloud/vision');
 const maps = require('@google/maps')
 
+
+
+router.get('/', function(req, res, next){
+	var returnnames = [];
+	var returnstreets = [];
+	var returncities = [];
+	var returnstates = [];
+	var returnzip = [];
+	var returncapdate = [];
+
+	var capturedate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+	var index;
+	fs.readdir("./temp2", function(err, items){
+		console.log(items);
+		quickstart().then(addresses => {
+			console.log(addresses);
+			for (index = 0; index < addresses.length; index++){
+				var testfile = "./temp2/" + items[index];
+				console.log(testfile);
+				var street_address = addresses[index][0].house_number + " " + addresses[index][0].road;
+				var insertquery = "INSERT INTO Postal_Address2 (Name, Street, City, State, Zip, Valid, File, Capture_date, Lat, Lng) VALUES (" + connection.escape("test") + "," + connection.escape(street_address ) + "," + connection.escape(addresses[index][0].city) + "," + connection.escape(addresses[index][0].state) + "," + connection.escape(addresses[index][0].zipcode) + "," + connection.escape(addresses[index][1]) + "," + connection.escape(testfile) + "," + connection.escape(capturedate) + "," + connection.escape(addresses[index][0].lat) + "," + connection.escape(addresses[index][0].lng) + ")";
+				connection.query(insertquery, function(err, result){
+					if (err){
+						throw err
+					}
+					else{
+						console.log("sucessfully inserted");
+					}
+				})
+			}		
+			res.send("finished insert");			
+		})
+		
+	})
+	
+});
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var filesystem = require("fs");
 async function quickstart() {
 	// [Starts text detection]
 	// Imports the Google Cloud client library
@@ -19,14 +74,12 @@ async function quickstart() {
 
 	// Function to acquire all files from a folder
 	var _getAllFiles = function(dir) {
-
-	    
 	    var results = [];
 
-	    fs.readdirSync(dir).forEach(function(file) {
+	    filesystem.readdirSync(dir).forEach(function(file) {
 
 	        file = dir+'/'+file;
-	        var stat = fs.statSync(file);
+	        var stat = filesystem.statSync(file);
 
 	        if (stat && stat.isDirectory()) {
 	            results = results.concat(_getAllFiles(file))
@@ -38,10 +91,11 @@ async function quickstart() {
 
 	};
 
-	var images = _getAllFiles("./tempresources");
+	var images = _getAllFiles("./temp2");
 
 	var parsed_array = [];
 	var parsedJson = [];
+	var coordinates_array = [];
 
 	// Beginning text detection for all image files
 	for (var i = 0; i < images.length; i++) {
@@ -68,6 +122,7 @@ async function quickstart() {
 		  if (!err) {
 		  	// console.log("Cleaning address result: ");
 		  	//console.log(response.json.results[0]['formatted_address']);
+		  	coordinates_array.push(response.json.results[0]['geometry']['location']);
 		  	parsed_array.push(response.json.results[0]['address_components']);
 		  }
 		});
@@ -80,7 +135,9 @@ async function quickstart() {
 			road: "",
 			city: "",
 			state: "",
-			zipcode:""
+			zipcode:"",
+			lat: "",
+			lng: ""
 		};
 		//console.log(parsed_array[i]);
 
@@ -108,7 +165,8 @@ async function quickstart() {
 				valid++;
 			}
 		}
-		
+		temp['lat'] = coordinates_array[i]['lat'];
+		temp['lng'] = coordinates_array[i]['lng'];
 		if (valid >= 5) {
 			parsedJson.push([temp, "valid"]);
 		}		
@@ -120,69 +178,3 @@ async function quickstart() {
 	//console.log(parsedJson);
 	return parsedJson;
 }
-// [END vision_quickstart]
-
-//quickstart().catch(console.error);
-
-//quickstart().then(x => console.log(x));
-
-router.post('/', function(req, res, next){
-	var returnnames = [];
-	var returnstreets = [];
-	var returncities = [];
-	var returnstates = [];
-	var returnzip = [];
-	var returncapdate = [];
-
-
-	var names = ["hi", "my", "name", "is"];
-	var streets = ["hi", "my", "name", "is"];
-	var cities = ["hi", "my", "name", "is"];
-	var states = ["hi", "my", "name", "is"];
-	var zipcodes = ["92507", "92607", "92545", "92932"];
-	var capturedate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-
-	var testfile = fs.readFileSync("../testfile.JPG")
-	var index;
-	for (index = 0; index < names.length; index++){
-		var insertquery = "INSERT INTO Postal_Address (Name, Street, City, State, Zip, Valid, File, Capture_date,) VALUES (" + connection.escape(names[index]) + "," + connection.escape(streets[index]) + "," + connection.escape(cities[index]) + "," + connection.escape(states[index]) + "," + connection.escape(zipcodes[index]) + "," + connection.escape("yes") + "," + connection.escape(testfile) + "," + connection.escape(capturedate) + ")";
-		connection.query(insertquery, function(err, result){
-			if (err){
-				console.error('sql error: ', err);
-			}
-			else{
-				console.log("successfully inserted");
-			}
-		})
-	}
-	
-	var retrievequery = "SELECT Name, Street, City, State, Zip, Capture_date FROM Postal_Address WHERE Valid = 'yes'";
-	connection.query(retrievequery, function(err, result){
-		if (err){
-			console.error('sql error: ', err);
-		}
-		else{
-			var i;
-			for (i = 0; i < result.length; i++){
-				returnnames.push(result[i].Name);
-				returnstreets.push(result[i].Street);
-				returncities.push(result[i].City);
-				returnstates.push(result[i].State);
-				returnzip.push(result[i].Zip);
-				returncapdate.push(result[i].Capture_date);
-			}
-			res.json({
-				names: JSON.stringify(returnnames),
-				streets: JSON.stringify(returnstreets),
-				cities: JSON.stringify(returncities),
-				state: JSON.stringify(returnstates),
-				zips: JSON.stringify(returnzip),
-				capdates: JSON.stringify(returncapdate)
-			});
-		}
-	});
-	
-});
-
-module.exports = router;
