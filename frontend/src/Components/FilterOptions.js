@@ -10,12 +10,12 @@ class FilterOptions extends React.Component {
         <div class="sidenav">
           <Link to="/invalid" class="invalidButton"><h1>Invalid Address</h1></Link>
           <Accordion atomic={true}>
-            <AccordionItem title="City">
+            <AccordionItem title="State">
               <div>
                 test1
               </div>
             </AccordionItem>
-            <AccordionItem title="State">
+            <AccordionItem title="City">
               <div>
                 test2
               </div>

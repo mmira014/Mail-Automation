@@ -11,7 +11,7 @@ class HomePage extends React.Component {
               <header class="App-header">
                 <b>A Million Thanks: Addresses</b>
               </header>
-              <table class="table">
+              {/* <table class="table">
                 <thead >
                   <tr class="tableHeader">
                     <th scope="col">Name</th>
@@ -23,7 +23,8 @@ class HomePage extends React.Component {
                   </tr>
                 </thead>
                 <TableContent userArray={[]}/>
-              </table>
+              </table> */}
+              <TableContent userArray={[]}/>
             </div>
           </div>
       );
