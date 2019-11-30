@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 // ------------- Functions -------------------------
 
@@ -131,7 +132,7 @@ class TableContent extends React.Component {
                   <TableCell align="right">{this.state.city[index]}</TableCell>
                   <TableCell align="right">{this.state.state[index]}</TableCell>
                   <TableCell align="right">{this.state.zip[index]}</TableCell>
-                  <TableCell align="right">{this.state.capdate[index]}</TableCell>
+                  <TableCell align="right">{this.state.capdate[index].substring(0,10)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
