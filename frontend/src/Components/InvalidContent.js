@@ -1,4 +1,13 @@
-import React from 'react'
+import React from 'react';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 // ------------- Functions -------------------------
 
@@ -82,22 +91,52 @@ class InvalidContent extends React.Component {
   }
   
     render() {
-      return (
-        <tbody>
-          {this.state.names.map((addr, index) => {
-            return (
-              <tr class="table">
-                <td>{this.state.names[index]}</td>
-                <td>{this.state.street[index]}</td>
-                <td>{this.state.city[index]}</td>
-                <td>{this.state.state[index]}</td>
-                <td>{this.state.zip[index]}</td>
-                <td>{this.state.capdate[index].substring(0, 10)}</td>
-              </tr>
-            )})
-          }
-        </tbody>
+      // return (
+      //   <tbody>
+      //     {this.state.names.map((addr, index) => {
+      //       return (
+      //         <tr class="table">
+      //           <td>{this.state.names[index]}</td>
+      //           <td>{this.state.street[index]}</td>
+      //           <td>{this.state.city[index]}</td>
+      //           <td>{this.state.state[index]}</td>
+      //           <td>{this.state.zip[index]}</td>
+      //           <td>{this.state.capdate[index].substring(0, 10)}</td>
+      //         </tr>
+      //       )})
+      //     }
+      //   </tbody>
+      // );
+   return(
+        <Paper>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell component="th" scope="row">Name</TableCell>
+                <TableCell align="right">Street</TableCell>
+                <TableCell align="right">City</TableCell>
+                <TableCell align="right">State</TableCell>
+                <TableCell align="right">Zip</TableCell>
+                <TableCell align="right">Capture Date</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {this.state.names.map((addr, index) => (
+                <TableRow key="testkey">
+                  <TableCell component="th" scope="row">{this.state.names[index]}</TableCell>
+                  <TableCell align="right">{this.state.street[index]}</TableCell>
+                  <TableCell align="right">{this.state.city[index]}</TableCell>
+                  <TableCell align="right">{this.state.state[index]}</TableCell>
+                  <TableCell align="right">{this.state.zip[index]}</TableCell>
+                  <TableCell align="right">{this.state.capdate[index].substring(0,10)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
       );
+      
     }
   }
 

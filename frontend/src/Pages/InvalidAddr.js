@@ -9,9 +9,9 @@ class InvalidAddrPage extends React.Component {
             <FilterOptions/>
             <div className="main">
               <header class="App-header">
-                <b>A Million Thanks: ERRORS</b>
+                <b>A Million Thanks: Invalid Addresses</b>
               </header>
-              <table class="table">
+              {/*<table class="table">
                 <thead >
                   <tr class="tableHeader">
                     <th scope="col">Name</th>
@@ -21,9 +21,9 @@ class InvalidAddrPage extends React.Component {
                     <th scope="col">Zipcode</th>
                     <th scope="col">Capture date</th>
                   </tr>
-                </thead>
+                </thead> 
+                </table>*/}
                 <InvalidContent userArray={[]}/>
-              </table>
             </div>
           </div>
       );
