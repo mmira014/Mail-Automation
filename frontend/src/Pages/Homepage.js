@@ -24,7 +24,7 @@ class HomePage extends React.Component {
                 </thead>
                 <TableContent userArray={[]}/>
               </table> */}
-              <TableContent userArray={[]}/>
+              <TableContent/>
             </div>
           </div>
       );
