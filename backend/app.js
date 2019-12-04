@@ -14,6 +14,7 @@ var dbdisplayRouter = require('./routes/dbdisplay');
 var fixaddressRouter = require('./routes/fixaddress');
 var submitFileRouter = require('./routes/submitFile');
 var uploadFilesRouter = require('./routes/uploadFiles');
+var heatmapRouter = require('./routes/latlng');
 
 var app = express();
 
@@ -122,6 +123,7 @@ app.use('/dbdisplay', dbdisplayRouter);
 app.use('/fixaddress', fixaddressRouter);
 app.use('/submitFile', submitFileRouter);
 app.use('/upload', uploadFilesRouter);
+app.use('/heatmap', heatmapRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
