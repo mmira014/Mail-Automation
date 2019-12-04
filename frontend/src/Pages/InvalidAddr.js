@@ -28,6 +28,8 @@ class InvalidAddrPage extends React.Component {
           </div>
       );
     }
+
+
 }
 
 export default InvalidAddrPage;
