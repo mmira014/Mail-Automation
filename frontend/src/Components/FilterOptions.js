@@ -8,7 +8,7 @@ class FilterOptions extends React.Component {
     render() {
       return (
         <div class="sidenav">
-          <Link to="/invalid" class="invalidButton"><h1>Invalid Address</h1></Link>
+          <Link to="/invalid" class="invalidButton"><h1>Invalid</h1></Link>
           <Accordion atomic={true}>
             <AccordionItem title="State">
               <div>

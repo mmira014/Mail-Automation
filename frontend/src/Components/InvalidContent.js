@@ -123,7 +123,7 @@ class InvalidContent extends React.Component {
 
             <TableBody>
               {this.state.names.map((addr, index) => (
-                <TableRow key="testkey">
+                <TableRow>
                   <TableCell component="th" scope="row">{this.state.names[index]}</TableCell>
                   <TableCell align="right">{this.state.street[index]}</TableCell>
                   <TableCell align="right">{this.state.city[index]}</TableCell>

@@ -32,9 +32,10 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: rgb(106, 121, 179);
+  background-color: #282c34;
   /* overflow-x: hidden; Disable horizontal scroll */
   padding-top: 0px;
+  color: white;
 }
 
 /* .sidenav a {
@@ -55,24 +56,28 @@
 
 .uploadButton {
   display: block;
-  width: 100%;
-  background-color: rgb(166, 201, 255);
+  width: 96%;
+  background-color: rgb(125, 175, 252);
   color: #ffffff;
   text-align: center;
   position: absolute;
   bottom: 0px;
   padding: 0px;
+  border-radius: 20px;
+  margin: 2%;
 }
 
 .invalidButton {
   display: block;
-  width: 100%;
-  background-color: rgb(166, 201, 255);
+  width: 96%;
+  background-color: rgb(250, 169, 62);
   color: #ffffff;
   text-align: center;
   position: absolute;
-  bottom: 0px;
-  padding: 0px;
+  bottom: 8%;
+  padding: auto;
+  border-radius: 20px;
+  margin: 2%;
 }
 
 .uploadButton:hover {
@@ -82,7 +87,7 @@
 }
 
 .invalidButton:hover {
-  background-color: rgb(199, 222, 255);
+  background-color: rgb(255, 198, 123);
   text-decoration: none;
   color: white;
 }
