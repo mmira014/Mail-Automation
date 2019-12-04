@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import MainBar from '../Components/MainBar'
 
 // function logFileBin(event) {
 //   console.log("logFileBin Output:\n",event.target.result);
@@ -85,6 +86,7 @@ class UploadPage extends React.Component {
     return (
       <div>
         {/* <h1>Insert file upload box here</h1> */}
+        <MainBar content={"Upload"}/>
         <input type="file" multiple={true} accept=".heic,image/*" onChange={this.fileSelectHandler} />
         <input type="button" value="Process" onClick={this.processFiles}/>
       </div>
