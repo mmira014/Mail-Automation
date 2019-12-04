@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import { makeStyles, decomposeColor } from '@material-ui/core/styles';
+import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,9 +9,34 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import TablePagination from '@material-ui/core/TablePagination'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
 
-
-var dataRows = [];
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+  },
+  paper: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 750,
+  },
+  tableWrapper: {
+    overflowX: 'auto',
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
+  },
+}));
 
 function createRow(name, street, city, state, zip, capdate) {
   return { name, street, city, state, zip, capdate };
@@ -44,6 +69,48 @@ function getSorting(order, orderBy) {
   return order === 'desc' ? (a,b) => desc(a,b,orderBy): (a,b) => -desc(a,b,orderBy);
 }
 
+// ----------------------- Enhanced Table Header ---------------------------
+function EnhancedTableHead(props) {
+  const {classes, order, orderBy, onRequestSort, rowCount} = props;
+  const createSortHandler = property => event => {
+    onRequestSort(event, property);
+  };
+
+  return (
+    <TableHead>
+      <TableRow>
+        {headerCells.map((header, index) => (
+          <TableCell
+            key={header.id}
+            sortDirection={orderBy === header.id ? order : false}
+          >
+            <TableSortLabel 
+              active={orderBy === header.id}
+              direction={order}
+              onClick={createSortHandler(header.id)}
+            >
+              {header.label}
+              {orderBy === header.id ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))} 
+      </TableRow>
+    </TableHead>
+  )
+}
+
+const headerCells = [
+  {id:"name", label:"Name"},
+  {id:"street", label:"Street"},
+  {id:"city", label:"City"},
+  {id:"state", label:"State"},
+  {id:"zip", label:"Zip"},
+  {id:"capdate", label:"Capture Date"}
+]
 
 // ----------------------- export function ----------------------------------
 export default function TableContent() {
@@ -56,8 +123,8 @@ export default function TableContent() {
     state:[],
     zip:[],
     capdate:[]});
-
   const [dataRows, setDataRows] = useState([]);
+  const classes = useStyles();
     
   // fetches data from db and populates <data> variable
   useEffect(() => {
@@ -117,14 +184,14 @@ export default function TableContent() {
   }, [data]);
 
   // Pagination Implmentation
-  const [page, setPage] = React.useState(0); // reads value from useState into page (so page = 0)
+  const [page, setPage] = React.useState(0); // reads value from useState into page (page = 0)
   const [rowsPerPage, setRowsPerPage] = React.useState(20);
   
   const[order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState("zip") 
+  const [orderBy, setOrderBy] = useState("capdate") 
 
   const handleChangePage = (event, newPage) => {
-    console.log("newPage:", newPage);
+    // console.log("newPage:", newPage);
     setPage(newPage);
   };
 
@@ -133,34 +200,43 @@ export default function TableContent() {
     setPage(0); // reset page to first page
   };
 
+  const handleRequestSort = (event, currentOrderReq) => {
+    if(orderBy === currentOrderReq && order === 'desc') {
+      // previous orderBy is the same as current order request and current order is desc -> change order to ascending
+      setOrder('asc');
+    }
+    else {
+      setOrder('desc');
+    }
+    setOrderBy(currentOrderReq);
+  }
+
   // Material-UI Table 
   return(
+    // conditional return -> if dataRows is populated, display data; else, display "loading"
     dataRows.length ?
     <Paper>
       <div>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell component="th" scope="row">Name</TableCell>
-              <TableCell align="right">Street</TableCell>
-              <TableCell align="right">City</TableCell>
-              <TableCell align="right">State</TableCell>
-              <TableCell align="right">Zip</TableCell>
-              <TableCell align="right">Capture Date</TableCell>
-            </TableRow>
-          </TableHead>
-
+        <Table stickyHeader>
+          <EnhancedTableHead
+            classes={classes}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={dataRows.length}
+          />
           <TableBody>
             {
-            dataRows.slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
+            stableSort(dataRows, getSorting(order, orderBy))
+            .slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
             .map((addr, index) => (
               <TableRow>
                 <TableCell component="th" scope="row">{addr.name}</TableCell>
-                <TableCell align="right">{addr.street}</TableCell>
-                <TableCell align="right">{addr.city}</TableCell>
-                <TableCell align="right">{addr.state}</TableCell>
-                <TableCell align="right">{addr.zip}</TableCell>
-                <TableCell align="right">{addr.capdate.substring(0,10)}</TableCell>
+                <TableCell align="left">{addr.street}</TableCell>
+                <TableCell align="left">{addr.city}</TableCell>
+                <TableCell align="left">{addr.state}</TableCell>
+                <TableCell align="left">{addr.zip}</TableCell>
+                <TableCell align="left">{addr.capdate.substring(0,10)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -176,6 +252,6 @@ export default function TableContent() {
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </Paper>
-    : <div> Loading </div>
+    : <div> Loading... </div>
   );
 }
