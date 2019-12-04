@@ -38,8 +38,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function createRow(name, street, city, state, zip, capdate) {
-  return { name, street, city, state, zip, capdate };
+function createRow(street, city, state, zip, capdate) {
+  return {street, city, state, zip, capdate };
 }
 
 // custom stable sort algorithm where we can use cmp=(ascending or descending) to determine sort 
@@ -104,7 +104,7 @@ function EnhancedTableHead(props) {
 }
 
 const headerCells = [
-  {id:"name", label:"Name"},
+  // {id:"name", label:"Name"},
   {id:"street", label:"Street"},
   {id:"city", label:"City"},
   {id:"state", label:"State"},
@@ -169,7 +169,7 @@ export default function TableContent() {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
       let newDataRows = []; 
       data["names"].map((addr, index) => 
-        newDataRows.push(createRow(data["names"][index], 
+        newDataRows.push(createRow( 
         data["street"][index], 
         data["city"][index], 
         data["state"][index], 
@@ -231,7 +231,7 @@ export default function TableContent() {
             .slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
             .map((addr, index) => (
               <TableRow>
-                <TableCell component="th" scope="row">{addr.name}</TableCell>
+                {/* <TableCell component="th" scope="row">{addr.name}</TableCell> */}
                 <TableCell align="left">{addr.street}</TableCell>
                 <TableCell align="left">{addr.city}</TableCell>
                 <TableCell align="left">{addr.state}</TableCell>
