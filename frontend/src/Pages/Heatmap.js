@@ -1,6 +1,8 @@
  /* global google */
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react'
+import MainBar from '../Components/MainBar'
+
 
 class HeatMap extends Component {
   static defaultProps = {
@@ -36,16 +38,19 @@ class HeatMap extends Component {
     console.log(this.state)
 
     return (
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          ref={(el) => this._googleMap = el}
-          bootstrapURLKeys={apiKey}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          heatmapLibrary={true}
-          heatmap={heatMapData}
-        >
-        </GoogleMapReact>
+      <div>
+        <MainBar content={"Addresses"}/>
+        <div style={{ height: '100vh', width: '100%' }}>
+          <GoogleMapReact
+            ref={(el) => this._googleMap = el}
+            bootstrapURLKeys={apiKey}
+            defaultCenter={this.props.center}
+            defaultZoom={this.props.zoom}
+            heatmapLibrary={true}
+            heatmap={heatMapData}
+          >
+          </GoogleMapReact>
+        </div>
       </div>
     )
   }

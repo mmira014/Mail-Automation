@@ -1,6 +1,7 @@
 import React from 'react'
 import FilterOptions from '../Components/FilterOptions'
 import TableContent from '../Components/TableContent'
+import MainBar from '../Components/MainBar'
 
 class HomePage extends React.Component {
     render() {

@@ -1,6 +1,7 @@
 import React from 'react'
 import FilterOptions from '../Components/FilterOptions'
 import InvalidContent from '../Components/InvalidContent'
+import MainBar from '../Components/MainBar'
 
 class InvalidAddrPage extends React.Component {
     render() {
@@ -8,9 +9,7 @@ class InvalidAddrPage extends React.Component {
         <div>
             <FilterOptions/>
             <div className="main">
-              <header class="App-header">
-                <b>A Million Thanks: Invalid Addresses</b>
-              </header>
+              <MainBar content={"Invalid Addresses"}/>
               {/*<table class="table">
                 <thead >
                   <tr class="tableHeader">
