@@ -27,6 +27,8 @@ class FilterOptions extends React.Component {
             </AccordionItem>
           </Accordion>
           <Link to="/upload" class="uploadButton"><h1>Upload</h1></Link>
+          <Link to="/heatmap" class="heatmapButton"><h1>Heatmap</h1></Link>
+
           
 
         </div>

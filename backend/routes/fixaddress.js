@@ -9,7 +9,8 @@ router.post('/invalid', function(req, res, next){
 	var returnstates = [];
 	var returnzip = [];
 	var returncapdate = [];
-	var retrievequery = "SELECT Name, Street, City, State, Zip, Capture_date FROM Postal_Address WHERE Valid = 'invalid'";
+	var returnID = [];
+	var retrievequery = "SELECT idPostalAddress, Name, Street, City, State, Zip, Capture_date FROM Postal_Address WHERE Valid = 'invalid'";
 	connection.query(retrievequery, function(err, result){
 		if (err){
 			console.error('sql error: ', err);
@@ -25,6 +26,7 @@ router.post('/invalid', function(req, res, next){
 				returnstates.push(result[i].State);
 				returnzip.push(result[i].Zip);
 				returncapdate.push(result[i].Capture_date);
+				returnID.push(result[i].idPostalAddress)
 			}
 			console.log(returnnames);
 			console.log(returnstreets);
@@ -32,13 +34,15 @@ router.post('/invalid', function(req, res, next){
 			console.log(returnstates);
 			console.log(returnzip);
 			console.log(returncapdate);
+			console.log(returnID);
 			res.json({
 				names: JSON.stringify(returnnames),
 				streets: JSON.stringify(returnstreets),
 				cities: JSON.stringify(returncities),
 				state: JSON.stringify(returnstates),
 				zips: JSON.stringify(returnzip),
-				capdates: JSON.stringify(returncapdate)
+				capdates: JSON.stringify(returncapdate),
+				ids: JSON.stringify(returnID)
 			});
 		}
 	});
