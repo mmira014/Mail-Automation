@@ -24,6 +24,27 @@ class HeatMap extends Component {
     }
   }
 
+  callAPI(){
+    var data = {
+      message: "hi"
+    }
+    fetch("http://localhost:9000/heatmap/heatmap",{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res =>{
+      console.log(res);
+    })
+  }
+
+  componentDidMount(){
+      this.callAPI();
+  }
+
   render() {
 
     const apiKey = {key: 'AIzaSyCetpay9unzzY9ILi4F5bUUOr6DK3UHpuc'}
