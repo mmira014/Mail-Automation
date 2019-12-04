@@ -12,7 +12,8 @@ class UploadPage extends React.Component {
   state = {
     userFiles: null,
     uploadDone: false,
-    redirect:false
+    redirect:false,
+    loading:false
   }
 
   // grabs selected files and stores array in state userFiles
@@ -88,6 +89,7 @@ class UploadPage extends React.Component {
 
   processFiles = async(event) => {
     console.log("making fetch...")
+    this.setState({loading:true}, this.showLoading)
     await fetch('http://localhost:9000/submitFile')
     .then((resolve, reject) => {
       console.log("Fetch made");
@@ -100,6 +102,15 @@ class UploadPage extends React.Component {
     })
   }
 
+  showLoading = () => {
+    if(this.state.loading) {
+      return <div>Please wait...</div>
+    }
+    else {
+      console.log("not loading")
+    }
+  }
+
   render() {
     return (
       <div>
@@ -108,6 +119,7 @@ class UploadPage extends React.Component {
         <MainBar content={"Upload"}/>
         <input type="file" multiple={true} accept=".heic,image/*" onChange={this.fileSelectHandler} />
         <input type="button" value="Process" onClick={this.processFiles}/>
+        {this.showLoading()}
       </div>
     );
   }
