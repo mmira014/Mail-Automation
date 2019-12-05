@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 import MainBar from '../Components/MainBar'
 
 // function logFileBin(event) {
@@ -10,7 +11,9 @@ import MainBar from '../Components/MainBar'
 class UploadPage extends React.Component {
   state = {
     userFiles: null,
-    uploadDone: false
+    uploadDone: false,
+    redirect:false,
+    loading:false
   }
 
   // grabs selected files and stores array in state userFiles
@@ -52,7 +55,7 @@ class UploadPage extends React.Component {
     
     for (var i = 0; i < files.length; ++i) {
       let fd = new FormData();
-      fd.append('file', files[i], files[i].name) // FIXME: make sure set replaces on name
+      fd.append('file', files[i], files[i].name) 
       
       const newPromise = axios({
         method: 'post',
@@ -62,33 +65,61 @@ class UploadPage extends React.Component {
       axiosArr.push(newPromise);
     }
 
-    axios.all(axiosArr)
-    .then(() => {
-        this.setState({uploadDone: true});
-        alert("FILE UPLOAD COMPLETE");
+    console.log("TEST")
+    await axios.all(axiosArr)
+    .then((resolve, reject) => {
+        // this.setState({uploadDone: true});
     })
     .catch((err) => {
       console.log("Error:", err);
     });
-    
-    
-    
+    console.log("DONE")
+    alert("Files uploaded");
   }
 
-  processFiles = event => {
-    fetch('http://localhost:9000/submitFile')
-    .then(() => {
-      console.log("Fetch made")
+  renderRedirect = () => {
+    if(this.state.redirect) {
+      console.log("redirecting!")
+      return <Redirect to='/'/>
+    }
+    else {
+      console.log("no redirect")
+    }
+  }
+
+  processFiles = async(event) => {
+    console.log("making fetch...")
+    this.setState({loading:true}, this.showLoading)
+    await fetch('http://localhost:9000/submitFile')
+    .then((resolve, reject) => {
+      console.log("Fetch made");
+      alert("Processing Complete");
+      this.setState({redirect:true}, this.renderRedirect);
     })
+    .catch((err) => {
+      alert("PROCESSING ERROR");
+      console.log("processing error");
+    })
+  }
+
+  showLoading = () => {
+    if(this.state.loading) {
+      return <div>Please wait...</div>
+    }
+    else {
+      console.log("not loading")
+    }
   }
 
   render() {
     return (
       <div>
         {/* <h1>Insert file upload box here</h1> */}
+        {this.renderRedirect()}
         <MainBar content={"Upload"}/>
         <input type="file" multiple={true} accept=".heic,image/*" onChange={this.fileSelectHandler} />
         <input type="button" value="Process" onClick={this.processFiles}/>
+        {this.showLoading()}
       </div>
     );
   }

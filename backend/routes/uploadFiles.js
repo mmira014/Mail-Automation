@@ -19,6 +19,7 @@ router.post('/', (req, res) => {
             // res.redirect('back');
         });
     });
+    res.send("done");
 });
 
 module.exports = router;
