@@ -17,10 +17,7 @@ class HeatMap extends Component {
     super(props)
     this.state = {
       heatmapVisible: true,
-      heatmapPoints: [
-          {lat: 37.782, lng: -122.447},
-          {lat: 37.782, lng: -100}
-        ]
+      heatmapPoints: []
     }
   }
 
@@ -38,6 +35,25 @@ class HeatMap extends Component {
     .then(res => res.json())
     .then(res =>{
       console.log(res);
+
+      var tempLat = JSON.parse(res.Lat);
+      var tempLng = JSON.parse(res.Lng);
+      var heatmapArray = [];
+      for (var i = 0; i < tempLat.length; i++) {
+      	let temp = {
+      		lat: 0, lng: 0
+      	};
+
+      	temp.lat = tempLat[i];
+      	temp.lng = tempLng[i];
+      	//console.log(temp);
+      	heatmapArray.push(temp);
+      }
+	  this.setState( {
+	  	heatmapPoints: heatmapArray
+	  })     
+      console.log(heatmapArray);
+
     })
   }
 
