@@ -32,4 +32,3 @@ class InvalidAddrPage extends React.Component {
 }
 
 export default InvalidAddrPage;
-

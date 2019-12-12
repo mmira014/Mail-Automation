@@ -106,7 +106,7 @@ function EnhancedTableHead(props) {
 }
 
 const headerCells = [
-  {id:"name", label:"Name"},
+  {id:"name", label:"Image"},
   {id:"street", label:"Street"},
   {id:"city", label:"City"},
   {id:"state", label:"State"},
@@ -179,7 +179,7 @@ export default function InvalidContent() {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
       let newDataRows = []; 
         data["names"].map((addr, index) => 
-        newDataRows.push(createRow(data["id"][index], 
+        newDataRows.push(createRow(data["names"][index], 
         data["street"][index], 
         data["city"][index], 
         data["state"][index], 
@@ -242,7 +242,7 @@ export default function InvalidContent() {
             .slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
             .map((addr, index) => (
               <TableRow>
-                <TableCell component="th" scope="row">{addr.name}</TableCell>
+                <TableCell align="left"><img height={125} src={addr.name}/></TableCell>
                 <TableCell align="left">{addr.street}</TableCell>
                 <TableCell align="left">{addr.city}</TableCell>
                 <TableCell align="left">{addr.state}</TableCell>
