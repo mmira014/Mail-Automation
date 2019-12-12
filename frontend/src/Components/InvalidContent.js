@@ -108,7 +108,7 @@ function EnhancedTableHead(props) {
 }
 
 const headerCells = [
-  {id:"name", label:"Name"},
+  {id:"name", label:"Image"},
   {id:"street", label:"Street"},
   {id:"city", label:"City"},
   {id:"state", label:"State"},
@@ -179,8 +179,13 @@ export default function InvalidContent() {
     // console.log("[useEffect2] At time of createDataRows call, data is length:", data["names"].length);
     const createRowsAsync = async() => {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
+<<<<<<< HEAD
       let newDataRows = []; // temp variable to aggregate new data rows
       data["names"].map((addr, index) => 
+=======
+      let newDataRows = []; 
+        data["names"].map((addr, index) => 
+>>>>>>> 67268f856b4baabe0f12c7f79ebc728cabc11cfe
         newDataRows.push(createRow(data["names"][index], 
         data["street"][index], 
         data["city"][index], 
@@ -256,7 +261,7 @@ export default function InvalidContent() {
     //         .slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
     //         .map((addr, index) => (
     //           <TableRow>
-    //             <TableCell component="th" scope="row">{addr.name}</TableCell>
+    //             <TableCell align="left"><img height={125} src={addr.name}/></TableCell>
     //             <TableCell align="left">{addr.street}</TableCell>
     //             <TableCell align="left">{addr.city}</TableCell>
     //             <TableCell align="left">{addr.state}</TableCell>
