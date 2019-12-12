@@ -182,6 +182,7 @@ export default function InvalidContent() {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
       let newDataRows = []; // temp variable to aggregate new data rows
       data["names"].map((addr, index) => 
+<<<<<<< HEAD
         newDataRows.push(createRow(data["names"][index], 
         data["street"][index], 
         data["city"][index], 
@@ -189,6 +190,15 @@ export default function InvalidContent() {
         data["zip"][index], 
         data["capdate"][index],
         data["id"][index])
+=======
+      newDataRows.push(createRow(data["names"][index], 
+      data["street"][index], 
+      data["city"][index], 
+      data["state"][index], 
+      data["zip"][index], 
+      //  data["id"][index],
+        data["capdate"][index])
+>>>>>>> 87183970146bf816d4839a8c2813cad76383986e
       ))
       // console.log("newData")
       setDataRows(newDataRows);
