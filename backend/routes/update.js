@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
     let newCity = req.body.city;
     let newState = req.body.state;
     let newZip = req.body.zip;
-    const UPDATE_QUERY = "UPDATE Postal_Address SET street="+ connection.escape(newStreet)+", city="+connection.escape(newCity)+", state="+ connection.escape(newState)+ ", zip="+connection.escape(newZip)+" WHERE idPostalAddress="+connection.escape(target_id);
+    const UPDATE_QUERY = "UPDATE Postal_Address SET street="+ connection.escape(newStreet)+", city="+connection.escape(newCity)+", state="+ connection.escape(newState)+ ", zip="+connection.escape(newZip)+", valid='valid' WHERE idPostalAddress="+connection.escape(target_id);
     console.log(UPDATE_QUERY);
     connection.query(UPDATE_QUERY, function(err, result) {
         if(err) {
