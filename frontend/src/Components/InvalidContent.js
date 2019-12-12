@@ -179,18 +179,13 @@ export default function InvalidContent() {
     // console.log("[useEffect2] At time of createDataRows call, data is length:", data["names"].length);
     const createRowsAsync = async() => {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
-<<<<<<< HEAD
       let newDataRows = []; // temp variable to aggregate new data rows
       data["names"].map((addr, index) => 
-=======
-      let newDataRows = []; 
-        data["names"].map((addr, index) => 
->>>>>>> 67268f856b4baabe0f12c7f79ebc728cabc11cfe
-        newDataRows.push(createRow(data["names"][index], 
-        data["street"][index], 
-        data["city"][index], 
-        data["state"][index], 
-        data["zip"][index], 
+      newDataRows.push(createRow(data["names"][index], 
+      data["street"][index], 
+      data["city"][index], 
+      data["state"][index], 
+      data["zip"][index], 
       //  data["id"][index],
         data["capdate"][index])
       ))
