@@ -10,10 +10,11 @@ import Paper from '@material-ui/core/Paper';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
 import ReactDOM from 'react-dom';
-import TablePagination from '@material-ui/core/TablePagination'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
+import TablePagination from '@material-ui/core/TablePagination';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import MaterialTable from 'material-table';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,8 +43,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function createRow(name, street, city, state, zip, capdate) {
-  return { name, street, city, state, zip, capdate };
+function createRow(name, street, city, state, zip, capdate, id) {
+  return { name, street, city, state, zip, capdate,id };
 }
 
 // custom stable sort algorithm where we can use cmp=(ascending or descending) to determine sort 
@@ -74,47 +75,47 @@ function getSorting(order, orderBy) {
 }
 
 // ----------------------- Enhanced Table Header ---------------------------
-function EnhancedTableHead(props) {
-  const {classes, order, orderBy, onRequestSort, rowCount} = props;
-  const createSortHandler = property => event => {
-    onRequestSort(event, property);
-  };
+// function EnhancedTableHead(props) {
+//   const {classes, order, orderBy, onRequestSort, rowCount} = props;
+//   const createSortHandler = property => event => {
+//     onRequestSort(event, property);
+//   };
 
-  return (
-    <TableHead>
-      <TableRow>
-        {headerCells.map((header, index) => (
-          <TableCell
-            key={header.id}
-            sortDirection={orderBy === header.id ? order : false}
-          >
-            <TableSortLabel 
-              active={orderBy === header.id}
-              direction={order}
-              onClick={createSortHandler(header.id)}
-            >
-              {header.label}
-              {orderBy === header.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))} 
-      </TableRow>
-    </TableHead>
-  )
-}
+//   return (
+//     <TableHead>
+//       <TableRow>
+//         {headerCells.map((header, index) => (
+//           <TableCell
+//             key={header.id}
+//             sortDirection={orderBy === header.id ? order : false}
+//           >
+//             <TableSortLabel 
+//               active={orderBy === header.id}
+//               direction={order}
+//               onClick={createSortHandler(header.id)}
+//             >
+//               {header.label}
+//               {orderBy === header.id ? (
+//                 <span className={classes.visuallyHidden}>
+//                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+//                 </span>
+//               ) : null}
+//             </TableSortLabel>
+//           </TableCell>
+//         ))} 
+//       </TableRow>
+//     </TableHead>
+//   )
+// }
 
-const headerCells = [
-  {id:"name", label:"Image"},
-  {id:"street", label:"Street"},
-  {id:"city", label:"City"},
-  {id:"state", label:"State"},
-  {id:"zip", label:"Zip"},
-  {id:"capdate", label:"Capture Date"}
-]
+// const headerCells = [
+//   {id:"name", label:"Image"},
+//   {id:"street", label:"Street"},
+//   {id:"city", label:"City"},
+//   {id:"state", label:"State"},
+//   {id:"zip", label:"Zip"},
+//   {id:"capdate", label:"Capture Date"}
+// ]
 
 // ----------------------- export function ----------------------------------
 export default function InvalidContent() {
@@ -179,20 +180,15 @@ export default function InvalidContent() {
     // console.log("[useEffect2] At time of createDataRows call, data is length:", data["names"].length);
     const createRowsAsync = async() => {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
-<<<<<<< HEAD
       let newDataRows = []; // temp variable to aggregate new data rows
       data["names"].map((addr, index) => 
-=======
-      let newDataRows = []; 
-        data["names"].map((addr, index) => 
->>>>>>> 67268f856b4baabe0f12c7f79ebc728cabc11cfe
         newDataRows.push(createRow(data["names"][index], 
         data["street"][index], 
         data["city"][index], 
         data["state"][index], 
         data["zip"][index], 
-      //  data["id"][index],
-        data["capdate"][index])
+        data["capdate"][index],
+        data["id"][index])
       ))
       // console.log("newData")
       setDataRows(newDataRows);
@@ -236,62 +232,46 @@ export default function InvalidContent() {
     {field:"city", title:"City"},
     {field:"state", title:"State"},
     {field:"zip", title:"Zip"},
-    {field:"capdate", title:"Capture Date"}
+    {field:"capdate", title:"Capture Date"},
+    {field:"id", title:"ID"}
   ]);
 
-  // const [dataRows_MT, setDataRows_MT] = React.useState([
-  //   {name: "1Data",street: "2Data", city: "lsn", state: "lkaf", zip: "098", capdate: "adsf"}
-  // ])
   return(
     // conditional return -> if dataRows is populated, display data; else, display "loading"
     dataRows.length ?
-    // <Paper>
-    //   <div>
-    //     <Table stickyHeader>
-    //       <EnhancedTableHead
-    //         classes={classes}
-    //         order={order}
-    //         orderBy={orderBy}
-    //         onRequestSort={handleRequestSort}
-    //         rowCount={dataRows.length}
-    //       />
-    //       <TableBody>
-    //         {
-    //         stableSort(dataRows, getSorting(order, orderBy))
-    //         .slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
-    //         .map((addr, index) => (
-    //           <TableRow>
-    //             <TableCell align="left"><img height={125} src={addr.name}/></TableCell>
-    //             <TableCell align="left">{addr.street}</TableCell>
-    //             <TableCell align="left">{addr.city}</TableCell>
-    //             <TableCell align="left">{addr.state}</TableCell>
-    //             <TableCell align="left">{addr.zip}</TableCell>
-    //             <TableCell align="left">{addr.capdate.substring(0,10)}</TableCell>
-    //           </TableRow>
-    //         ))}
-    //       </TableBody>
-    //     </Table>
-    //   </div>
-    //   <TablePagination
-    //     rowsPerPageOptions={[5,10,20]}
-    //     component="div"
-    //     count={data.names.length}
-    //     rowsPerPage={rowsPerPage}
-    //     page={page}
-    //     onChangePage={handleChangePage}
-    //     onChangeRowsPerPage={handleChangeRowsPerPage}
-    //   />
-    // </Paper>
-
     <MaterialTable 
       title="Click the icon to edit an entry:"
       columns={headerCells_MT}
       data={dataRows}
+      detailPanel={[{
+        disabled:false,
+        render: rowData => {
+          return (
+            <div>
+              <img width="100%" src={"http://localhost:9000/" + rowData.name}/>
+            </div>
+          );
+        }
+      }]}
       options={{
         search:false,
       }}
       editable={{
-        
+        onRowUpdate: (newData, oldData) => 
+          new Promise((resolve,reject) => {
+            setTimeout(() => {
+              resolve();
+              // make axios post with new data 
+              axios.post("http://localhost:9000/update/", newData);
+              // if(oldData) {
+              //   setData(prevData => {
+              //     const data = [prevData];
+              //     data[data.indexOf(oldData)] = newData;
+              //     return {...prevData, data};
+              //   }) 
+              // }
+            }, 300)
+          })
       }}
       />
     : <div> Loading... </div>
