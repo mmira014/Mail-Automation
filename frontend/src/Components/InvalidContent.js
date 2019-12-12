@@ -13,6 +13,8 @@ import ReactDOM from 'react-dom';
 import TablePagination from '@material-ui/core/TablePagination'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 
+import MaterialTable from 'material-table';
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -177,9 +179,9 @@ export default function InvalidContent() {
     // console.log("[useEffect2] At time of createDataRows call, data is length:", data["names"].length);
     const createRowsAsync = async() => {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
-      let newDataRows = []; 
-        data["names"].map((addr, index) => 
-        newDataRows.push(createRow(data["id"][index], 
+      let newDataRows = []; // temp variable to aggregate new data rows
+      data["names"].map((addr, index) => 
+        newDataRows.push(createRow(data["names"][index], 
         data["street"][index], 
         data["city"][index], 
         data["state"][index], 
@@ -222,50 +224,76 @@ export default function InvalidContent() {
     setOrderBy(currentOrderReq);
   }
 
-  // Material-UI Table 
+  // Material Table
+  const [headerCells_MT, setHeaderCells_MT] = React.useState([
+    {field:"name", title:"Name"},
+    {field:"street", title:"Street"},
+    {field:"city", title:"City"},
+    {field:"state", title:"State"},
+    {field:"zip", title:"Zip"},
+    {field:"capdate", title:"Capture Date"}
+  ]);
+
+  // const [dataRows_MT, setDataRows_MT] = React.useState([
+  //   {name: "1Data",street: "2Data", city: "lsn", state: "lkaf", zip: "098", capdate: "adsf"}
+  // ])
   return(
     // conditional return -> if dataRows is populated, display data; else, display "loading"
     dataRows.length ?
-    <Paper>
-      <div>
-        <Table stickyHeader>
-          <EnhancedTableHead
-            classes={classes}
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            rowCount={dataRows.length}
-          />
-          <TableBody>
-            {
-            stableSort(dataRows, getSorting(order, orderBy))
-            .slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
-            .map((addr, index) => (
-              <TableRow>
-                <TableCell component="th" scope="row">{addr.name}</TableCell>
-                <TableCell align="left">{addr.street}</TableCell>
-                <TableCell align="left">{addr.city}</TableCell>
-                <TableCell align="left">{addr.state}</TableCell>
-                <TableCell align="left">{addr.zip}</TableCell>
-                <TableCell align="left">{addr.capdate.substring(0,10)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-      <TablePagination
-        rowsPerPageOptions={[5,10,20]}
-        component="div"
-        count={data.names.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+    // <Paper>
+    //   <div>
+    //     <Table stickyHeader>
+    //       <EnhancedTableHead
+    //         classes={classes}
+    //         order={order}
+    //         orderBy={orderBy}
+    //         onRequestSort={handleRequestSort}
+    //         rowCount={dataRows.length}
+    //       />
+    //       <TableBody>
+    //         {
+    //         stableSort(dataRows, getSorting(order, orderBy))
+    //         .slice(page*rowsPerPage, page*rowsPerPage+rowsPerPage)
+    //         .map((addr, index) => (
+    //           <TableRow>
+    //             <TableCell component="th" scope="row">{addr.name}</TableCell>
+    //             <TableCell align="left">{addr.street}</TableCell>
+    //             <TableCell align="left">{addr.city}</TableCell>
+    //             <TableCell align="left">{addr.state}</TableCell>
+    //             <TableCell align="left">{addr.zip}</TableCell>
+    //             <TableCell align="left">{addr.capdate.substring(0,10)}</TableCell>
+    //           </TableRow>
+    //         ))}
+    //       </TableBody>
+    //     </Table>
+    //   </div>
+    //   <TablePagination
+    //     rowsPerPageOptions={[5,10,20]}
+    //     component="div"
+    //     count={data.names.length}
+    //     rowsPerPage={rowsPerPage}
+    //     page={page}
+    //     onChangePage={handleChangePage}
+    //     onChangeRowsPerPage={handleChangeRowsPerPage}
+    //   />
+    // </Paper>
+
+    <MaterialTable 
+      title="Click the icon to edit an entry:"
+      columns={headerCells_MT}
+      data={dataRows}
+      options={{
+        search:false,
+      }}
+      editable={{
+        
+      }}
       />
-    </Paper>
     : <div> Loading... </div>
   );
 }
+
+// FIXME: display pic with detail panel
 
  // ReactDOM.render(<InvalidContent />, document.getElementById('root'));
 

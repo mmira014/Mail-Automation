@@ -9,6 +9,7 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "google-map-react": "^1.1.5",
+    "material-table": "^1.54.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-light-accordion": "^0.1.4",
