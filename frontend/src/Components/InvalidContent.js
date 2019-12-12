@@ -182,7 +182,6 @@ export default function InvalidContent() {
       // console.log("[useEffect2][async] data.length:", data["names"].length)
       let newDataRows = []; // temp variable to aggregate new data rows
       data["names"].map((addr, index) => 
-<<<<<<< HEAD
         newDataRows.push(createRow(data["names"][index], 
         data["street"][index], 
         data["city"][index], 
@@ -190,15 +189,6 @@ export default function InvalidContent() {
         data["zip"][index], 
         data["capdate"][index],
         data["id"][index])
-=======
-      newDataRows.push(createRow(data["names"][index], 
-      data["street"][index], 
-      data["city"][index], 
-      data["state"][index], 
-      data["zip"][index], 
-      //  data["id"][index],
-        data["capdate"][index])
->>>>>>> 87183970146bf816d4839a8c2813cad76383986e
       ))
       // console.log("newData")
       setDataRows(newDataRows);
@@ -258,7 +248,7 @@ export default function InvalidContent() {
         render: rowData => {
           return (
             <div>
-              <img width="100%" src={"http://localhost:9000/" + rowData.name}/>
+              <img width="100%" src={"http://localhost:9000/" + rowData.name.substring(8)}/>
             </div>
           );
         }
@@ -287,9 +277,6 @@ export default function InvalidContent() {
     : <div> Loading... </div>
   );
 }
-
-// FIXME: display pic with detail panel
-
  // ReactDOM.render(<InvalidContent />, document.getElementById('root'));
 
 //export default InvalidContent;
