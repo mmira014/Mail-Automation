@@ -20,9 +20,9 @@ var updateRouter = require('./routes/update');
 var app = express();
 
 var connection = mysql.createConnection({
-	host: '35.235.91.217',
-	user: 'glim005',
-	database: 'Many_thanks'
+	host: '',
+	user: '',
+	database: ''
 })
 
 connection.connect(function(err){
