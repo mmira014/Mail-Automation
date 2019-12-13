@@ -8,9 +8,16 @@ The goal of the project is to help A Million Thanks automate the process of reco
 ![DBexample](/readmeimages/dbhost.png)
 
 ## Running the webapp
-Go to both backend and frontend directories in separate terminals. Make sure all the dependencies are installed in both. To do this use the command: "npm install"
+Two terminals must be launched in order to run the system; one terminal for the backend, the other for the frontend.
+### Backend (Terminal 1)
+* Navigate to backend folder: `cd backend`
+  * Install required React packages: `npm install`
+    * Launch application: `npm start`
 
-After that, call: "npm start" on the backend and then the frontend.
+### Frontend (Terminal 2)
+* Navigate to frontend folder: `cd frontend`
+  * Install required React packages: `npm install`
+    * Launch application: `npm start`
 
 ## Webapp snapshots
 Home Page:
