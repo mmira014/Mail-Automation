@@ -1,7 +1,7 @@
 # A Million Thanks
 
 ## About
-The goal of the project is to help A Million Thanks automate the process of recording the addresses of mail senders into a database. We will capture the address of the sender of received mail using the Google Cloud Vision optical character recognition API. We will create a MySQL database that can hold all the addresses of the senders and support queries of address features including filtering by city, state, and zip code. Our project may allow the user to export address lists to a file as a json dump. Our project may also include a heatmap of where mail is received from, which we will implement using an existing API such as MapBox GL JS.
+The goal of the project is to help A Million Thanks automate the process of recording the addresses of mail senders into a database. We will capture the address of the sender of received mail using the Google Cloud Vision optical character recognition API. We created a MySQL database that can hold all the addresses of the senders and support queries of address features including filtering by city, state, and zip code. Our project also features a heatmap of where mail is received from, a page to upload pictures, and a page to correct any invalid addresses that the character recognition API produced.
 
 ## Before running
 1. Make sure you have a MySQL database hosted either in Google Cloud or a different service. In backend/app.js make sure you input your database information.  
