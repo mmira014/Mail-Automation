@@ -9,7 +9,7 @@ async function quickstart() {
 	const client = new vision.ImageAnnotatorClient();
 
 	const googleMapsClient = require('@google/maps').createClient({
-  		key: 'AIzaSyCetpay9unzzY9ILi4F5bUUOr6DK3UHpuc'
+  		//key: 'Your Key'
 	});
 
 	// Function to acquire all files from a folder
