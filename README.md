@@ -25,5 +25,10 @@ Invalid Addresses Page:
 Upload Page:
 ![upload](/readmeimages/upload.png)
 
+## APIs and Requirements
+1. Google Cloud Vision - Requires google application credentials
+2. Geocoding API - Requires API key
+3. Google Maps API - Requires API key
+
 ## Design and Documentation
 This can be found in the "[Get Jeffed] Design Document.pdf" file
