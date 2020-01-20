@@ -6,6 +6,7 @@ import {Accordion, AccordionItem} from 'react-light-accordion'
 
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import ManualAdd from '../Pages/ManualAdd'
 
 import 'react-light-accordion/demo/css/index.css'
 import { makeStyles } from '@material-ui/core/styles';
@@ -75,6 +76,8 @@ export default function FilterOptions() {
             />
         </AccordionItem>
       </Accordion>
+
+      <Link to="/manualadd">Manual Add</Link>
       <Link to="/upload" class="uploadButton"><h1>Upload</h1></Link>
       <Link to="/heatmap" class="heatmapButton"><h2>Heatmap</h2></Link>
     </div>
