@@ -10,6 +10,7 @@ import HomePage from './Pages/Homepage'
 import UploadPage from './Pages/Upload'
 import InvalidAddrPage from './Pages/InvalidAddr'
 import HeatMap from './Pages/Heatmap.js'
+import ManualAdd from './Pages/ManualAdd';
 
 var userArr = [];
 const user = {
@@ -32,6 +33,7 @@ class App extends React.Component {
         <Route path="/upload" component={UploadPage} />
         <Route path="/invalid" component={InvalidAddrPage} />
         <Route path="/heatmap" component={HeatMap} />
+        <Route path="/manualadd" component={ManualAdd} />
       </BrowserRouter>
     );
   }
