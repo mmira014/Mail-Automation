@@ -63,7 +63,7 @@ class HeatMap extends Component {
 
   render() {
 
-    // const apiKey = {key: 'Your Key'}
+    const apiKey = {key: null} // REPLACE
     const heatMapData = {
       positions: this.state.heatmapPoints,
     options: {
